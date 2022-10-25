@@ -31,8 +31,8 @@ class ProduitsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $files = $form->get('image')->getData();
-            foreach($files as $file){
+            $file = $form->get('image')->getData();
+
                 // Je génère un nouveau nom de fichier
                 $fichier = md5(uniqid()) . '.' . $file->guessExtension();
 
@@ -47,8 +47,8 @@ class ProduitsController extends AbstractController
                 $file->setPath($fichier);
               
                 $produit->setImage($file);
-
-            }
+                
+         
 
             $produitsRepository->add($produit, true);
 

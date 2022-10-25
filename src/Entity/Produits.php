@@ -23,11 +23,13 @@ class Produits
     #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'produits')]
     private $categorie;
 
-    #[ORM\OneToMany(targetEntity: Files::class, cascade: ['persist', 'remove'],mappedBy:'produits')]
-    private $image;
+
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
+
+    #[ORM\OneToOne(inversedBy: 'produits', targetEntity: Files::class, cascade: ['persist', 'remove'])]
+    private $image;
 
 
 
@@ -61,17 +63,7 @@ class Produits
         return $this;
     }
 
-    public function getImage(): ?Files
-    {
-        return $this->image;
-    }
 
-    public function setImage(?Files $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
@@ -81,6 +73,18 @@ class Produits
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImage(): ?Files
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Files $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

@@ -320,30 +320,7 @@
 
 										<div class="items_group clearfix" style="width:100%;">
 
-											{% for produit in produits %}
-
-												<div class="column  column_photo_box">
-
-
-													<div class="photo_box image_frame ">
-
-														<div class="img">
-															<a title="Magimix algerie | {{ produit.nom }}" href="" style="position:relative; z-index:999;">
-
-
-																<img style="width: 230px;" class="scale-with-grid" src="{{ asset('logos_categories/' ~ produit.image.path)}}" alt="Magimix Algérie {{ produit.nom }}">
-
-															</a>
-
-														</div>
-
-														<h4 style=" color:black;    font-size: 14px;
-																																																																																																																																																																		    margin-top: -18px;">{{ produit.nom }}</h4>
-													</div>
-												</div>
-
-
-											{% endfor %}
+										{{produits.description|raw}}
 
 
 										</div>

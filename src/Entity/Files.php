@@ -18,11 +18,13 @@ class Files
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $path;
 
-    #[ORM\ManyToOne(targetEntity: Produits::class, inversedBy: 'image')]
-    private $produits;
+
 
     #[ORM\OneToOne(mappedBy: 'logo', targetEntity: Categories::class, cascade: ['persist', 'remove'])]
     private $categories;
+
+    #[ORM\OneToOne(mappedBy: 'image', targetEntity: Produits::class, cascade: ['persist', 'remove'])]
+    private $produits;
 
     public function getId(): ?int
     {
@@ -41,17 +43,7 @@ class Files
         return $this;
     }
 
-    public function getProduits(): ?Produits
-    {
-        return $this->produits;
-    }
 
-    public function setProduits(?Produits $produits): self
-    {
-        $this->produits = $produits;
-
-        return $this;
-    }
 
     public function getCategories(): ?Categories
     {
@@ -71,6 +63,28 @@ class Files
         }
 
         $this->categories = $categories;
+
+        return $this;
+    }
+
+    public function getProduits(): ?Produits
+    {
+        return $this->produits;
+    }
+
+    public function setProduits(?Produits $produits): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($produits === null && $this->produits !== null) {
+            $this->produits->setImage(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($produits !== null && $produits->getImage() !== $this) {
+            $produits->setImage($this);
+        }
+
+        $this->produits = $produits;
 
         return $this;
     }

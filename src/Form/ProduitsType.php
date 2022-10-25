@@ -29,7 +29,7 @@ class ProduitsType extends AbstractType
             
             ->add('image',FileType::class,[
                 'label'=> 'Documents',
-                'multiple' => true,
+                'multiple' => false,
                 'mapped'=> false,
                 'required'=> false,
         

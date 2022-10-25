@@ -34,7 +34,7 @@ class MainController extends AbstractController
     #[Route('/produit/{id}', name: 'app_produits_details', methods: ['GET', 'POST'])]
     public function produit(Request $request, $id, ProduitsRepository $ProduitsRepository): Response
     {
-        $produits =  $ProduitsRepository->findBy(array('id'=>$id));
+        $produits =  $ProduitsRepository->findOneBy(array('id'=>$id));
         return $this->render('main/produit.html.twig', [
             'produits' => $produits,
         ]);
