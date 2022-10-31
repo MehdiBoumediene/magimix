@@ -92,6 +92,42 @@ class CategoriesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $files = $form->get('logo')->getData();
+            foreach($files as $file){
+                // Je génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $file->guessExtension();
+
+                // Je copie le fichier dans le dossier uploads
+                $file->move(
+                    $this->getParameter('logos_directory'),
+                    $fichier
+                );
+
+                // Je stocke le document dans la BDD (nom du fichier)
+                $file= new Files();
+                $file->setPath($fichier);
+              
+                $category->setLogo($file);
+
+            }
+            $files2 = $form->get('image')->getData();
+            foreach($files2 as $files2){
+                // Je génère un nouveau nom de fichier
+                $fichier2 = md5(uniqid()) . '.' . $files2->guessExtension();
+
+                // Je copie le fichier dans le dossier uploads
+                $files2->move(
+                    $this->getParameter('logos_directory'),
+                    $fichier2
+                );
+
+                // Je stocke le document dans la BDD (nom du fichier)
+                $file2= new Files();
+                $file2->setPath($fichier2);
+              
+                $category->setImage($file2);
+
+            }
             $categoriesRepository->add($category, true);
 
             return $this->redirectToRoute('app_categories_index', [], Response::HTTP_SEE_OTHER);
