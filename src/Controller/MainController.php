@@ -21,6 +21,18 @@ class MainController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/catalogue", name="catalogue")
+     */
+    public function catalogueAction(Request $request)
+    {
+ 
+        // replace this example code with whatever you need
+        return $this->render('main/catalogue.html.twig', [
+    
+        ]);
+    }
+
     #[Route('/categorie/{id}', name: 'app_categories_details', methods: ['GET', 'POST'])]
     public function categories(Request $request, $id, ProduitsRepository $ProduitsRepository): Response
     {
